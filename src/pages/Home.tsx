@@ -6,24 +6,23 @@ export default function Home() {
   return (
     <div className="flex flex-col">
       {/* Hero Section */}
-      <section className="relative h-[70vh] flex items-center justify-center overflow-hidden border-b border-brand-red/10">
+      <section className="relative min-h-[70vh] py-20 flex items-center justify-center overflow-hidden border-b border-brand-red/10">
         <div className="relative z-10 max-w-5xl mx-auto text-center px-4">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <span className="font-sans-ui text-brand-green mb-8 block font-bold tracking-widest uppercase text-xs">Mendoza • Cosecha Orgánica</span>
-            <h1 className="text-7xl md:text-9xl font-light italic text-brand-brown leading-none mb-12">
+            <h1 className="text-5xl md:text-9xl font-light italic text-brand-brown leading-tight md:leading-none mb-12">
               Hecho para <br />
               <span className="text-brand-red font-bold not-italic">disfrutar.</span>
             </h1>
-            <div className="flex flex-col md:flex-row items-center justify-center gap-8">
-              <Link to="/catalog" className="bg-brand-green text-white px-12 py-4 rounded-full font-sans-ui hover:bg-brand-red transition-all">
-                Ver Catálogo
+            <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-8">
+              <Link to="/desayuno" className="w-full md:w-auto bg-brand-green text-white px-6 md:px-8 py-4 rounded-full font-sans-ui hover:bg-brand-red transition-all text-sm uppercase tracking-wider font-bold text-center">
+                Realizar pedido de desayuno
               </Link>
-              <Link to="/gallery" className="border border-brand-brown/30 text-brand-brown px-12 py-4 rounded-full font-sans-ui hover:border-brand-brown transition-all">
-                Galería
+              <Link to="/catalog?category=yerba" className="w-full md:w-auto border border-brand-brown/30 text-brand-brown px-6 md:px-8 py-4 rounded-full font-sans-ui hover:border-brand-brown transition-all text-sm uppercase tracking-wider font-bold text-center">
+                Ver catálogo de Yerbas
               </Link>
             </div>
           </motion.div>

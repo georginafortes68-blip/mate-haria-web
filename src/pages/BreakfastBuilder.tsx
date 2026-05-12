@@ -216,20 +216,20 @@ export default function BreakfastBuilder() {
         animate={{ opacity: 1, y: 0 }}
         className="text-center mb-12"
       >
-        <span className="text-[10px] uppercase tracking-[0.3em] text-brand-green font-sans font-bold">Experiencia Personalizada</span>
+        <span className="text-[12px] uppercase tracking-[0.3em] text-brand-green font-sans font-bold">Experiencia Personalizada</span>
         <h2 className="text-5xl md:text-6xl font-bold text-brand-green mt-4 mb-2 leading-tight">Armá tu Desayuno</h2>
         
         {activeType === 'clasico' && (
           <div className="flex items-center justify-center gap-2 mb-8">
             <span className="text-2xl font-bold text-brand-brown">$ {activePrice.toLocaleString('es-AR')}</span>
-            <span className="text-[10px] text-brand-brown/40 uppercase tracking-widest italic">(Sin envío incluido)</span>
+            <span className="text-[12px] text-brand-brown/40 uppercase tracking-widest italic">(Sin envío incluido)</span>
           </div>
         )}
 
         {activeType === 'personalizado' && (
           <div className="flex items-center justify-center gap-2 mb-8">
             <span className="text-2xl font-bold text-brand-brown">$ {activePrice.toLocaleString('es-AR')}</span>
-            <span className="text-[10px] text-brand-brown/40 uppercase tracking-widest italic">(Sin envío incluido)</span>
+            <span className="text-[12px] text-brand-brown/40 uppercase tracking-widest italic">(Sin envío incluido)</span>
           </div>
         )}
         
@@ -316,14 +316,14 @@ export default function BreakfastBuilder() {
             >
               <div className="mb-8">
                 <div className="flex items-center gap-4 mb-2">
-                  <span className="w-8 h-8 rounded-full bg-brand-green text-white flex items-center justify-center font-sans text-xs font-bold shrink-0">
+                  <span className="w-8 h-8 rounded-full bg-brand-green text-white flex items-center justify-center font-sans text-sm font-bold shrink-0">
                     {catIdx + 1}
                   </span>
                   <h3 className="text-2xl font-bold text-brand-brown uppercase tracking-widest">{category.name}</h3>
                 </div>
 
                 {category.description && (
-                  <p className="text-brand-red/70 text-[10px] font-sans italic ml-12 mt-1">
+                  <p className="text-brand-red/70 text-[12px] font-sans italic ml-12 mt-1">
                     ({category.description})
                   </p>
                 )}
@@ -351,7 +351,7 @@ export default function BreakfastBuilder() {
                           {option}
                         </span>
                         {isShipping && (
-                          <span className="text-[10px] text-brand-brown/40 font-sans tracking-widest mt-1">
+                          <span className="text-[12px] text-brand-brown/40 font-sans tracking-widest mt-1">
                             $ {SHIPPING_COSTS[option].toLocaleString('es-AR')}
                           </span>
                         )}
@@ -377,12 +377,12 @@ export default function BreakfastBuilder() {
           >
             <div className="mb-8">
               <div className="flex items-center gap-4 mb-2">
-                <span className="w-8 h-8 rounded-full bg-brand-green text-white flex items-center justify-center font-sans text-xs font-bold shrink-0">
+                <span className="w-8 h-8 rounded-full bg-brand-green text-white flex items-center justify-center font-sans text-sm font-bold shrink-0">
                   {categories.length + 1}
                 </span>
                 <h3 className="text-2xl font-bold text-brand-brown uppercase tracking-widest">Temática del desayuno</h3>
               </div>
-              <p className="text-brand-brown/60 text-xs font-sans italic ml-12">
+              <p className="text-brand-brown/60 text-sm font-sans italic ml-12">
                 Contanos cómo te gustaría que personalicemos tu caja y taza (Podés encontrar inspiración en nuestra GALERÍA)
               </p>
             </div>
@@ -412,17 +412,17 @@ export default function BreakfastBuilder() {
           
           {activeType === 'clasico' ? (
             <div className="mb-10 inline-block p-6 bg-white/10 rounded-3xl border border-white/10">
-              <span className="block text-[10px] uppercase tracking-widest text-white/40 mb-1">Total del pedido</span>
+              <span className="block text-[12px] uppercase tracking-widest text-white/40 mb-1">Total del pedido</span>
               <span className="text-4xl font-bold text-white">$ {currentTotal.toLocaleString('es-AR')}</span>
-              <span className="block text-[9px] text-white/40 mt-1 uppercase tracking-tighter italic">
+              <span className="block text-[11px] text-white/40 mt-1 uppercase tracking-tighter italic">
                 {selections['envio']?.[0] === 'Retirar sin costo' ? 'Retiro por sucursal' : 'Incluye envío'}
               </span>
             </div>
           ) : (
             <div className="mb-10 inline-block p-6 bg-white/10 rounded-3xl border border-white/10">
-              <span className="block text-[10px] uppercase tracking-widest text-white/40 mb-1">Total del pedido</span>
+              <span className="block text-[12px] uppercase tracking-widest text-white/40 mb-1">Total del pedido</span>
               <span className="text-4xl font-bold text-white">$ {currentTotal.toLocaleString('es-AR')}</span>
-              <span className="block text-[9px] text-white/40 mt-1 uppercase tracking-tighter italic">
+              <span className="block text-[11px] text-white/40 mt-1 uppercase tracking-tighter italic">
                 {selections['envio']?.[0] === 'Retirar sin costo' ? 'Retiro por sucursal' : 'Incluye envío'}
               </span>
             </div>
@@ -442,14 +442,14 @@ export default function BreakfastBuilder() {
             <MessageCircle size={24} />
             ENVIAR PEDIDO POR WHATSAPP
             {isComplete && (
-              <span className="absolute -top-3 -right-3 bg-brand-red text-white text-[10px] px-3 py-1 rounded-full uppercase tracking-tighter shadow-lg">
+              <span className="absolute -top-3 -right-3 bg-brand-red text-white text-[12px] px-3 py-1 rounded-full uppercase tracking-tighter shadow-lg">
                 ¡Listo!
               </span>
             )}
           </button>
           
           {!isComplete && (
-            <p className="text-brand-red text-xs mt-4 font-sans-ui uppercase tracking-widest opacity-80">
+            <p className="text-brand-red text-sm mt-4 font-sans-ui uppercase tracking-widest opacity-80">
               * Por favor, selecciona una opción en cada categoría
             </p>
           )}

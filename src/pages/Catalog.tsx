@@ -92,7 +92,7 @@ export default function Catalog() {
           onClick={() => setIsCartOpen(true)}
           className="fixed bottom-8 right-8 z-40 bg-brand-green text-brand-cream w-16 h-16 rounded-full flex items-center justify-center luxury-shadow-lg shadow-2xl"
         >
-          <div className="absolute -top-1 -right-1 bg-brand-red text-[10px] w-6 h-6 rounded-full flex items-center justify-center border-2 border-brand-cream font-bold">
+          <div className="absolute -top-1 -right-1 bg-brand-red text-[11px] w-6 h-6 rounded-full flex items-center justify-center border-2 border-brand-cream font-bold">
             {cart.length}
           </div>
           <ShoppingBag size={28} />
@@ -102,7 +102,7 @@ export default function Catalog() {
       <div className="flex flex-col md:flex-row justify-between items-baseline mb-20 gap-8 border-b border-brand-red/10 pb-10">
         <div>
           <h1 className="text-6xl font-bold uppercase tracking-tighter mb-4 text-brand-brown">CATÁLOGO YERBAS</h1>
-          <p className="font-sans-ui text-brand-brown/40 uppercase tracking-widest text-[10px]">Cosechas seleccionadas de autor</p>
+          <p className="font-sans-ui text-brand-brown/40 uppercase tracking-widest text-[12px]">Cosechas seleccionadas de autor</p>
         </div>
       </div>
 
@@ -141,11 +141,11 @@ export default function Catalog() {
               </div>
               
               <div className="flex flex-col gap-1">
-                <span className="font-sans-ui text-brand-red text-[8px] opacity-60 uppercase tracking-widest">
+                <span className="font-sans-ui text-brand-red text-[10px] opacity-60 uppercase tracking-widest">
                   COSECHA SELECCIONADA
                 </span>
                 <h3 className="text-xl font-bold uppercase tracking-tight leading-tight">{product.name}</h3>
-                <p className="text-[11px] text-brand-brown/60 italic font-serif mb-3 leading-relaxed">{product.description}</p>
+                <p className="text-[13px] text-brand-brown/60 italic font-serif mb-3 leading-relaxed">{product.description}</p>
                 <p className="text-lg font-bold text-brand-red font-sans">${product.price}</p>
               </div>
             </motion.div>
@@ -228,7 +228,7 @@ export default function Catalog() {
 
               <form onSubmit={handleCheckout} className="space-y-6">
                 <div>
-                  <label className="block text-xs font-bold uppercase tracking-widest text-brand-brown/40 mb-2">Nombre Completo</label>
+                  <label className="block text-sm font-bold uppercase tracking-widest text-brand-brown/40 mb-2">Nombre Completo</label>
                   <input 
                     required 
                     value={customerName} onChange={e => setCustomerName(e.target.value)}
@@ -236,7 +236,7 @@ export default function Catalog() {
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-bold uppercase tracking-widest text-brand-brown/40 mb-2">Teléfono de Contacto</label>
+                  <label className="block text-sm font-bold uppercase tracking-widest text-brand-brown/40 mb-2">Teléfono de Contacto</label>
                   <input 
                     required 
                     value={customerPhone} onChange={e => setCustomerPhone(e.target.value)}
@@ -244,7 +244,7 @@ export default function Catalog() {
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-bold uppercase tracking-widest text-brand-brown/40 mb-2">Mensaje para la Tarjeta (Opcional)</label>
+                  <label className="block text-sm font-bold uppercase tracking-widest text-brand-brown/40 mb-2">Mensaje para la Tarjeta (Opcional)</label>
                   <textarea 
                     value={cardMessage} onChange={e => setCardMessage(e.target.value)}
                     placeholder="Escribe aquí el mensaje personalizado..."
@@ -288,10 +288,10 @@ export default function Catalog() {
               <h2 className="text-4xl font-serif mb-4">Pedido Enviado</h2>
               <p className="text-brand-cream/80 mb-4">Tu pedido ha sido registrado con éxito.</p>
               <div className="bg-white/10 p-6 rounded-2xl mb-8 border border-white/20">
-                <p className="text-xs uppercase tracking-[0.2em] opacity-60 mb-2">ID de seguimiento</p>
+                <p className="text-sm uppercase tracking-[0.2em] opacity-60 mb-2">ID de seguimiento</p>
                 <p className="text-2xl font-bold tracking-widest">{orderComplete}</p>
               </div>
-              <p className="text-sm italic opacity-80 mb-12">Te contactaremos por WhatsApp a la brevedad para coordinar pago y entrega.</p>
+              <p className="text-base italic opacity-80 mb-12">Te contactaremos por WhatsApp a la brevedad para coordinar pago y entrega.</p>
               
               <div className="flex flex-col gap-4">
                 <a 
@@ -301,7 +301,7 @@ export default function Catalog() {
                 >
                   Confirmar por WhatsApp <MessageCircle size={20} />
                 </a>
-                <button onClick={() => setOrderComplete(null)} className="text-white/60 hover:text-white transition-colors underline text-sm">
+                <button onClick={() => setOrderComplete(null)} className="text-white/60 hover:text-white transition-colors underline text-base">
                   Cerrar ventana
                 </button>
               </div>

@@ -104,7 +104,7 @@ export default function Layout() {
       </main>
 
       <footer className="bg-brand-brown text-white py-12 px-10">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between text-[9px] font-sans uppercase tracking-[0.2em]">
+        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between text-[11px] font-sans uppercase tracking-[0.2em]">
           <div className="md:-ml-4">© {new Date().getFullYear()} Mate Haría</div>
           <div className="flex flex-col md:flex-row items-center gap-6 mt-6 md:mt-0">
             <span className="opacity-60 text-center">ENVÍOS A DOMICILIO CON CARGO</span>

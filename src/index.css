@@ -23,7 +23,7 @@
   }
 
   .font-sans-ui {
-    @apply font-sans text-[10px] uppercase tracking-[0.2em] font-bold;
+    @apply font-sans text-[12px] uppercase tracking-[0.2em] font-bold;
   }
 }
 
