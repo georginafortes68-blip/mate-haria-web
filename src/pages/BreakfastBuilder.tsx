@@ -59,7 +59,7 @@ const CLASICO_CATEGORIES: Category[] = [
   {
     id: 'dulce',
     name: 'Para comer dulce',
-    options: ['Porción de budín', 'Cupcake', '2 Medialunas'],
+    options: ['Porción de budín', 'Cookie grande', '2 Medialunas'],
     maxSelections: 3,
     description: 'más de 1 opción valor adicional de $2000'
   },
@@ -96,7 +96,7 @@ const PERSONALIZADO_CATEGORIES: Category[] = [
   {
     id: 'dulce',
     name: 'Para comer dulce',
-    options: ['Porción de budín', 'Cupcake', '2 Medialunas'],
+    options: ['Porción de budín', 'Cookie grande', '2 Medialunas'],
     maxSelections: 3,
     description: 'más de 1 opción valor adicional de $2000'
   },
@@ -195,6 +195,10 @@ export default function BreakfastBuilder() {
     if (!isClasico && theme) {
       message += `*Temática:* ${theme}\n\n`;
     }
+
+    // Add Inclusions
+    const inclusions = isClasico ? CLASICO_INCLUSIONS : PERSONALIZADO_INCLUSIONS;
+    message += `*Incluye en todos los casos:*\n- ${inclusions.join('\n- ')}\n\n`;
 
     categories.forEach(cat => {
       const selectedItems = selections[cat.id] || [];
