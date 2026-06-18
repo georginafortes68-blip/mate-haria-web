@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Search, Filter, ShoppingBag, X, MessageCircle, Send } from 'lucide-react';
-import { collection, getDocs } from 'firebase/firestore';
+import { collection, getDocs, doc, updateDoc } from 'firebase/firestore';
 import { db, handleFirestoreError, OperationType } from '../lib/firebase';
 import { addDoc, serverTimestamp } from 'firebase/firestore';
 
@@ -31,16 +31,101 @@ export default function Catalog() {
     const fetchProducts = async () => {
       try {
         const querySnapshot = await getDocs(collection(db, 'products'));
-        const productsData = querySnapshot.docs.map(doc => ({
+        let productsData = querySnapshot.docs.map(doc => ({
           id: doc.id,
           ...doc.data()
         })) as Product[];
         
-        // If empty, we can keep it empty or add sample yerba
+        const defaultYerbas = [
+          {
+            name: 'La Obereña Orgánica Certificada (500 g)',
+            category: 'yerba',
+            price: 5500,
+            imageUrl: '/gallery/Yerba Obereña.jpeg',
+            description: 'Libre de agroquímicos sintéticos y fertilizantes químicos. Sabor equilibrado y suave.'
+          },
+          {
+            name: 'Jesper Orgánica Certificada (500 g)',
+            category: 'yerba',
+            price: 7000,
+            imageUrl: '/gallery/Yerba Jesper org.jpeg',
+            description: 'Rica en antioxidantes naturales. Libre de gluten (Sin TACC).'
+          },
+          {
+            name: 'Jesper Hierbas Serranas (500 g)',
+            category: 'yerba',
+            price: 4500,
+            imageUrl: '/gallery/Yerba Jesper comp.jpeg',
+            description: 'Con menta, peperina y poleo cordobés. Libre de gluten (Sin TACC).'
+          },
+          {
+            name: 'Yerba Mate 10 (Messi) – 500 g',
+            category: 'yerba',
+            price: 3900,
+            imageUrl: '/gallery/Yerba messi.jpeg',
+            description: 'Elaborada con yerba mate tradicional. Libre de gluten.'
+          }
+        ];
+
+        // Migrate existing product images if they point to the old Yerbas.jpeg placeholder image
+        let migrated = false;
+        for (let i = 0; i < productsData.length; i++) {
+          const p = productsData[i];
+          if (p.name.includes('La Obereña') && (p.imageUrl === '/gallery/Yerbas.jpeg' || p.imageUrl === '/gallery/Yerbas.jpg' || !p.imageUrl)) {
+            try {
+              await updateDoc(doc(db, 'products', p.id), { imageUrl: '/gallery/Yerba Obereña.jpeg' });
+              productsData[i] = { ...p, imageUrl: '/gallery/Yerba Obereña.jpeg' };
+              migrated = true;
+            } catch (err) {
+              console.error('Failed to update product imageUrl in Firestore:', err);
+            }
+          }
+        }
+
         if (productsData.length === 0) {
-          setProducts([]);
+          // No products in DB, seed the requested yerba
+          const seeded = defaultYerbas.map((p, idx) => ({ id: `temp-${idx}`, ...p }));
+          setProducts(seeded);
+          
+          for (const item of defaultYerbas) {
+            await addDoc(collection(db, 'products'), item);
+          }
+          
+          const freshSnapshot = await getDocs(collection(db, 'products'));
+          const freshData = freshSnapshot.docs.map(doc => ({
+            id: doc.id,
+            ...doc.data()
+          })) as Product[];
+          setProducts(freshData.filter(p => p.category === 'yerba'));
         } else {
-          setProducts(productsData.filter(p => p.category === 'yerba'));
+          const fetchedYerbas = productsData.filter(p => p.category === 'yerba');
+          const hasOberena = fetchedYerbas.some(p => p.name.includes('Obereña'));
+          const hasJesperOrg = fetchedYerbas.some(p => p.name.includes('Jesper Orgánica'));
+          const hasJesperSerranas = fetchedYerbas.some(p => p.name.includes('Serranas'));
+          const hasMessi = fetchedYerbas.some(p => p.name.includes('Messi') || p.name.includes('Mate 10'));
+          
+          let updatedYerbas = [...fetchedYerbas];
+          if (!hasOberena) {
+            const itemToSeed = defaultYerbas[0];
+            const docRef = await addDoc(collection(db, 'products'), itemToSeed);
+            updatedYerbas.push({ id: docRef.id, ...itemToSeed });
+          }
+          if (!hasJesperOrg) {
+            const itemToSeed = defaultYerbas[1];
+            const docRef = await addDoc(collection(db, 'products'), itemToSeed);
+            updatedYerbas.push({ id: docRef.id, ...itemToSeed });
+          }
+          if (!hasJesperSerranas) {
+            const itemToSeed = defaultYerbas[2];
+            const docRef = await addDoc(collection(db, 'products'), itemToSeed);
+            updatedYerbas.push({ id: docRef.id, ...itemToSeed });
+          }
+          if (!hasMessi) {
+            const itemToSeed = defaultYerbas[3];
+            const docRef = await addDoc(collection(db, 'products'), itemToSeed);
+            updatedYerbas.push({ id: docRef.id, ...itemToSeed });
+          }
+          setProducts(updatedYerbas);
         }
       } catch (error) {
         handleFirestoreError(error, OperationType.LIST, 'products');
@@ -102,7 +187,6 @@ export default function Catalog() {
       <div className="flex flex-col md:flex-row justify-between items-baseline mb-20 gap-8 border-b border-brand-red/10 pb-10">
         <div>
           <h1 className="text-6xl font-bold uppercase tracking-tighter mb-4 text-brand-brown">CATÁLOGO YERBAS</h1>
-          <p className="font-sans-ui text-brand-brown/40 uppercase tracking-widest text-[12px]">Cosechas seleccionadas de autor</p>
         </div>
       </div>
 
@@ -141,11 +225,8 @@ export default function Catalog() {
               </div>
               
               <div className="flex flex-col gap-1">
-                <span className="font-sans-ui text-brand-red text-[10px] opacity-60 uppercase tracking-widest">
-                  COSECHA SELECCIONADA
-                </span>
                 <h3 className="text-xl font-bold uppercase tracking-tight leading-tight">{product.name}</h3>
-                <p className="text-[13px] text-brand-brown/60 italic font-serif mb-3 leading-relaxed">{product.description}</p>
+                <p className="text-[15px] text-brand-brown/85 italic font-serif mb-3 leading-relaxed">{product.description}</p>
                 <p className="text-lg font-bold text-brand-red font-sans">${product.price}</p>
               </div>
             </motion.div>
