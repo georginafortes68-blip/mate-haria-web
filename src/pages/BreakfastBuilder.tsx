@@ -122,7 +122,7 @@ export default function BreakfastBuilder() {
   const [selections, setSelections] = useState<Record<string, string[]>>({});
   const [theme, setTheme] = useState("");
   const phone = "5492616625188";
-  const activePrice = activeType === 'clasico' ? 79000 : 105000;
+  const activePrice = activeType === 'clasico' ? 65000 : 95000;
   const categories = activeType === 'clasico' ? CLASICO_CATEGORIES : PERSONALIZADO_CATEGORIES;
 
   const calculateTotal = () => {

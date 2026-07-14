@@ -10,7 +10,7 @@ interface GalleryItem {
   images?: string[];
 }
 
-const GalleryCard = ({ item }: { item: GalleryItem }) => {
+const GalleryCard = ({ item }: { item: GalleryItem; key?: React.Key }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
 
